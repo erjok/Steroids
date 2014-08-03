@@ -15,7 +15,7 @@ namespace Steroids.Tests.Linq
         {
             IEnumerable<object> sequence = null;
             var exception = Assert.Throws<ArgumentNullException>(() => sequence.Batch(3));
-            Assert.Equal("source", exception.ParamName);
+            exception.ParamName.ShouldBeEqual("source");
         }
 
         [Fact]
@@ -23,7 +23,7 @@ namespace Steroids.Tests.Linq
         {
             IEnumerable<int> sequence = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             var exception = Assert.Throws<ArgumentOutOfRangeException>(() => sequence.Batch(0));
-            Assert.Equal("size", exception.ParamName);
+            exception.ParamName.ShouldBeEqual("size");
         }
 
         [Fact]
@@ -31,7 +31,7 @@ namespace Steroids.Tests.Linq
         {
             IEnumerable<int> sequence = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             var exception = Assert.Throws<ArgumentOutOfRangeException>(() => sequence.Batch(-1));
-            Assert.Equal("size", exception.ParamName);
+            exception.ParamName.ShouldBeEqual("size");
         }
 
         [Fact]
@@ -39,7 +39,8 @@ namespace Steroids.Tests.Linq
         {
             IEnumerable<int> sequence = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             var batches = sequence.Batch(3).ToArray();
-            Assert.Equal(3, batches.Length);
+
+            batches.Length.ShouldBeEqual(3);
             batches[0].ShouldBeEqual(1, 2, 3);
             batches[1].ShouldBeEqual(4, 5, 6);
             batches[2].ShouldBeEqual(7, 8, 9);
@@ -50,7 +51,8 @@ namespace Steroids.Tests.Linq
         {
             IEnumerable<int> sequence = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             var batches = sequence.Batch(5).ToArray();
-            Assert.Equal(2, batches.Length);
+
+            batches.Length.ShouldBeEqual(2);
             batches[0].ShouldBeEqual(1, 2, 3, 4, 5);
             batches[1].ShouldBeEqual(6, 7, 8, 9);
         }

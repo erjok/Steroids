@@ -9,6 +9,11 @@ namespace Steroids.Tests.Linq
 {
     public static class AssertionExtensions
     {
+        public static void ShouldBeEqual<T>(this T actual, T expected)
+        {
+            Assert.Equal(expected, actual);
+        }
+
         public static void ShouldBeEqual<T>(this IEnumerable<T> actual, params T[] expected)
         {
             Assert.Equal(expected, actual.ToArray());
