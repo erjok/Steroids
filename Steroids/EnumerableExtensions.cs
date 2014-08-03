@@ -10,7 +10,7 @@ namespace Steroids
     {
         public static IEnumerable<IEnumerable<T>> Batch<T>(this IEnumerable<T> source, int size)
         {
-            throw new ArgumentNullException();
+            throw new ArgumentNullException("source");
         }
     }
 }

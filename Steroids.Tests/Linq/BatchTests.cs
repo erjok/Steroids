@@ -14,7 +14,8 @@ namespace Steroids.Tests.Linq
         public void ShouldNotBatchNullSequence()
         {
             IEnumerable<object> sequence = null;
-            Assert.Throws<ArgumentNullException>(() => sequence.Batch(3));
+            var exception = Assert.Throws<ArgumentNullException>(() => sequence.Batch(3));
+            Assert.Equal("source", exception.ParamName);
         }
     }
 }
