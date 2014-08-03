@@ -40,9 +40,9 @@ namespace Steroids.Tests.Linq
             IEnumerable<int> sequence = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             var batches = sequence.Batch(3).ToArray();
             Assert.Equal(3, batches.Length);
-            Assert.Equal(new[] { 1, 2, 3 }, batches[0]);
-            Assert.Equal(new[] { 4, 5, 6 }, batches[1]);
-            Assert.Equal(new[] { 7, 8, 9 }, batches[2]);
+            batches[0].ShouldBeEqual(1, 2, 3);
+            batches[1].ShouldBeEqual(4, 5, 6);
+            batches[2].ShouldBeEqual(7, 8, 9);
         }
         
         [Fact]
@@ -51,8 +51,8 @@ namespace Steroids.Tests.Linq
             IEnumerable<int> sequence = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             var batches = sequence.Batch(5).ToArray();
             Assert.Equal(2, batches.Length);
-            Assert.Equal(new[] { 1, 2, 3, 4, 5 }, batches[0]);
-            Assert.Equal(new[] { 6, 7, 8, 9 }, batches[1]);
+            batches[0].ShouldBeEqual(1, 2, 3, 4, 5);
+            batches[1].ShouldBeEqual(6, 7, 8, 9);
         }
 
         [Fact]
