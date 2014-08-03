@@ -17,5 +17,21 @@ namespace Steroids.Tests.Linq
             var exception = Assert.Throws<ArgumentNullException>(() => sequence.Batch(3));
             Assert.Equal("source", exception.ParamName);
         }
+
+        [Fact]
+        public void ShouldNotCreateZeroSizedBatches()
+        {
+            IEnumerable<int> sequence = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => sequence.Batch(0));
+            Assert.Equal("size", exception.ParamName);
+        }
+
+        [Fact]
+        public void ShouldNotCreateBatchesOfNegativeSize()
+        {
+            IEnumerable<int> sequence = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => sequence.Batch(-1));
+            Assert.Equal("size", exception.ParamName);
+        }
     }
 }
