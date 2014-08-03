@@ -33,5 +33,16 @@ namespace Steroids.Tests.Linq
             var exception = Assert.Throws<ArgumentOutOfRangeException>(() => sequence.Batch(-1));
             Assert.Equal("size", exception.ParamName);
         }
+
+        [Fact]
+        public void ShouldCreateCompletelyFilledBatches()
+        {
+            IEnumerable<int> sequence = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            var batches = sequence.Batch(3).ToArray();
+            Assert.Equal(batches.Length, 3);
+            Assert.Equal(new[] { 1, 2, 3 }, batches[0]);
+            Assert.Equal(new[] { 4, 5, 6 }, batches[1]);
+            Assert.Equal(new[] { 7, 8, 9 }, batches[2]);
+        }
     }
 }
