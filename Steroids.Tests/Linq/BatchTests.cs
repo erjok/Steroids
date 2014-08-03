@@ -39,20 +39,28 @@ namespace Steroids.Tests.Linq
         {
             IEnumerable<int> sequence = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             var batches = sequence.Batch(3).ToArray();
-            Assert.Equal(batches.Length, 3);
+            Assert.Equal(3, batches.Length);
             Assert.Equal(new[] { 1, 2, 3 }, batches[0]);
             Assert.Equal(new[] { 4, 5, 6 }, batches[1]);
             Assert.Equal(new[] { 7, 8, 9 }, batches[2]);
         }
         
         [Fact]
-        public void ShoulcreatePartiallyFilledBatch()
+        public void ShouldCreatePartiallyFilledBatch()
         {
             IEnumerable<int> sequence = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             var batches = sequence.Batch(5).ToArray();
-            Assert.Equal(batches.Length, 2);
+            Assert.Equal(2, batches.Length);
             Assert.Equal(new[] { 1, 2, 3, 4, 5 }, batches[0]);
             Assert.Equal(new[] { 6, 7, 8, 9 }, batches[1]);
+        }
+
+        [Fact]
+        public void ShouldUseDeferredExecution()
+        {
+            var sequence = new BrokenEnumerable<int>();
+            var batches = sequence.Batch(3);
+            // No exception
         }
     }
 }

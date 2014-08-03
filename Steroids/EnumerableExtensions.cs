@@ -34,7 +34,7 @@ namespace Steroids
                 batch.Add(item);
             }
 
-            if (batch.Any())
+            if (batch.Count > 0)
                 yield return batch;
         }
     }
