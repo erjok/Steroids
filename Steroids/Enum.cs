@@ -6,8 +6,19 @@ using System.Threading.Tasks;
 
 namespace Steroids
 {
-    public class Enum<T>
+    public static class Enum<T>
     {
+        static Enum()
+        {
+            if (!typeof(T).IsEnum)
+                throw new ArgumentException();
+        }
+
+        public static string GetName(int value)
+        {
+            return Enum.GetName(typeof(T), value);
+        }
+
         public static bool IsDefined(string name)
         {
             return Enum.IsDefined(typeof(T), name);

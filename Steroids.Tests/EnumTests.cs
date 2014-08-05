@@ -1,14 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Steroids.Tests
 {
     public class EnumTests
     {
+        [Fact]
+        public void ShouldNotInitializeTypeWithInvalidGenericParameter()
+        {
+            Assert.Throws<TypeInitializationException>(() => Enum<int>.GetName(1));
+        }
+
+        [Fact]
+        public void ShouldGetMemberNameByValue()
+        {
+            Enum<DayOfWeek>.GetName(5).ShouldBeEqual("Friday");
+        }
+
         [Fact]
         public void ShouldFindMemberByName()
         {
@@ -46,6 +56,12 @@ namespace Steroids.Tests
         public void ShouldParseValidName()
         {
             Enum<DayOfWeek>.Parse("Tuesday").ShouldBeEqual(DayOfWeek.Tuesday);
+        }
+
+        [Fact]
+        public void ShouldNotParseInvalidName()
+        {
+            Assert.Throws<ArgumentException>(() => Enum<DayOfWeek>.Parse("Beerday"));
         }
     }
 }
