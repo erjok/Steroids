@@ -26,7 +26,7 @@ namespace Steroids.Tests
         }
 
         [Fact]
-        public void ShouldNotGetMemberNameByInvalidValue()
+        public void ShouldGetMemberNameByInvalidValue()
         {
             Enum<DayOfWeek>.GetName(8).ShouldBeNull();
         }
@@ -84,9 +84,35 @@ namespace Steroids.Tests
         }
 
         [Fact]
+        public void ShouldNotParseInvalidCaseName()
+        {
+            Assert.Throws<ArgumentException>(() => Enum<DayOfWeek>.Parse("tuesday"));
+        }
+
+        [Fact]
         public void ShouldNotParseInvalidName()
         {
             Assert.Throws<ArgumentException>(() => Enum<DayOfWeek>.Parse("Beerday"));
         }
+
+        [Fact]
+        public void ShouldParseValidIntegerString()
+        {
+            Enum<DayOfWeek>.Parse("1").ShouldBeEqual(DayOfWeek.Monday);
+        }
+
+        [Fact]
+        public void ShouldParseInvalidIntegerString()
+        {
+            DayOfWeek day = Enum<DayOfWeek>.Parse("8");
+        }
+
+        [Fact]
+        public void ShouldIgnoreCaseParseValidName()
+        {
+            Enum<DayOfWeek>.ParseIgnoreCase("friday").ShouldBeEqual(DayOfWeek.Friday);
+        }
+
+        // TODO: Flags support
     }
 }

@@ -53,5 +53,10 @@ namespace Steroids
         {
             return (T)Enum.Parse(typeof(T), name);
         }
+
+        public static T ParseIgnoreCase(string name)
+        {
+            return (T)Enum.Parse(typeof(T), name, true);
+        }
     }
 }
