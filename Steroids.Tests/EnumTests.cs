@@ -14,9 +14,15 @@ namespace Steroids.Tests
         }
 
         [Fact]
-        public void ShouldGetMemberNameByValue()
+        public void ShouldGetMemberNameByIntegerValue()
         {
             Enum<DayOfWeek>.GetName(5).ShouldBeEqual("Friday");
+        }
+
+        [Fact]
+        public void ShouldGetMemberNameByEnumValue()
+        {
+            Enum<DayOfWeek>.GetName(DayOfWeek.Monday).ShouldBeEqual("Monday");
         }
 
         [Fact]
@@ -30,6 +36,12 @@ namespace Steroids.Tests
         {
             Enum<DayOfWeek>.GetNames().ShouldBeEqual("Sunday", "Monday", "Tuesday",
                 "Wednesday", "Thursday", "Friday", "Saturday");
+        }
+
+        [Fact]
+        public void ShouldGetUnderlyingTypeOfEnum()
+        {
+            Enum<DayOfWeek>.GetUnderlyingType().ShouldBeEqual(typeof(int));
         }
 
         [Fact]

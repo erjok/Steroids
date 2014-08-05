@@ -19,6 +19,26 @@ namespace Steroids
             return Enum.GetName(typeof(T), value);
         }
 
+        public static string GetName(DayOfWeek value)
+        {
+            return Enum.GetName(typeof(T), value);
+        }
+
+        public static string[] GetNames()
+        {
+            return Enum.GetNames(typeof(T));
+        }
+
+        public static Type GetUnderlyingType()
+        {
+            return Enum.GetUnderlyingType(typeof(T));
+        }
+
+        public static IEnumerable<T> GetValues()
+        {
+            return Enum.GetValues(typeof(T)).Cast<T>();
+        }
+
         public static bool IsDefined(string name)
         {
             return Enum.IsDefined(typeof(T), name);
@@ -29,19 +49,9 @@ namespace Steroids
             return Enum.IsDefined(typeof(T), value);
         }
 
-        public static IEnumerable<T> GetValues()
-        {
-            return Enum.GetValues(typeof(T)).Cast<T>();
-        }
-
         public static T Parse(string name)
         {
             return (T)Enum.Parse(typeof(T), name);
-        }
-
-        public static string[] GetNames()
-        {
-            return Enum.GetNames(typeof(T));
         }
     }
 }
