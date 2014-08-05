@@ -20,7 +20,7 @@ namespace Steroids
             return Enum.GetName(typeof(TEnum), value);
         }
 
-        public static string GetName(DayOfWeek value)
+        public static string GetName(TEnum value)
         {
             return Enum.GetName(typeof(TEnum), value);
         }
