@@ -136,6 +136,20 @@ namespace Steroids.Tests
             result.ShouldBeEqual(DayOfWeek.Monday);
         }
 
-        // TODO: Flags support
+        [Fact]
+        public void ShouldParseFlags()
+        {
+            Color yellow = Color.Red | Color.Green;
+            Enum<Color>.Parse("Red,Green").ShouldBeEqual(yellow);
+        }
+    }
+
+    [Flags]
+    public enum Color
+    {
+        None = 0,
+        Red = 1,
+        Green = 2,
+        Blue = 4 
     }
 }
