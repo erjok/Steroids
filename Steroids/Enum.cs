@@ -38,5 +38,10 @@ namespace Steroids
         {
             return (T)Enum.Parse(typeof(T), name);
         }
+
+        public static string[] GetNames()
+        {
+            return Enum.GetNames(typeof(T));
+        }
     }
 }

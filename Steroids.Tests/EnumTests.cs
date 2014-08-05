@@ -20,6 +20,19 @@ namespace Steroids.Tests
         }
 
         [Fact]
+        public void ShouldNotGetMemberNameByInvalidValue()
+        {
+            Enum<DayOfWeek>.GetName(8).ShouldBeNull();
+        }
+
+        [Fact]
+        public void ShouldGetAllMemberNames()
+        {
+            Enum<DayOfWeek>.GetNames().ShouldBeEqual("Sunday", "Monday", "Tuesday",
+                "Wednesday", "Thursday", "Friday", "Saturday");
+        }
+
+        [Fact]
         public void ShouldFindMemberByName()
         {
             Enum<DayOfWeek>.IsDefined("Friday").ShouldBeTrue();

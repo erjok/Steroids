@@ -28,5 +28,10 @@ namespace Steroids.Tests
         {
             Assert.False(actual);
         }
+
+        public static void ShouldBeNull(this string actual)
+        {
+            Assert.Null(actual);
+        }
     }
 }
