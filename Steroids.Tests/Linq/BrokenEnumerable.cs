@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Steroids.Tests.Linq
 {
-    internal class BrokenEnumerable<T> : IEnumerable<T>
+    internal class BrokenEnumerable<T> : IEnumerable<T> // NotImplementedEnumerable
     {
         public IEnumerator<T> GetEnumerator()
         {

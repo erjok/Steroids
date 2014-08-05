@@ -48,7 +48,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Linq\AssertionExtensions.cs" />
+    <Compile Include="EnumTests.cs" />
+    <Compile Include="AssertionExtensions.cs" />
     <Compile Include="Linq\BatchTests.cs" />
     <Compile Include="Linq\BrokenEnumerable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -64,5 +64,36 @@ namespace Steroids.Tests.Linq
             var batches = sequence.Batch(3);
             // No exception
         }
+
+        [Fact]
+        public void ShouldUseStreamingExecution()
+        {
+            var sequence = new Foo<int>();
+            var batches = sequence.Batch(3);
+
+            foreach (var batch in batches)
+            {
+                foreach (var item in batch) {  }
+                break;
+            }
+        }
     }
+
+    public class Foo<T> : IEnumerable<T> // Name: Fail/Brake after
+    {
+        public IEnumerator<T> GetEnumerator()
+        {
+            yield return default(T);
+            yield return default(T);
+            yield return default(T);
+            yield return default(T);
+            throw new InvalidOperationException();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+    }
+
 }
