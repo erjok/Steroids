@@ -6,57 +6,68 @@ using System.Threading.Tasks;
 
 namespace Steroids
 {
-    public static class Enum<T>
+    public static class Enum<TEnum>
+        where TEnum : struct
     {
         static Enum()
         {
-            if (!typeof(T).IsEnum)
+            if (!typeof(TEnum).IsEnum)
                 throw new ArgumentException();
         }
 
         public static string GetName(int value)
         {
-            return Enum.GetName(typeof(T), value);
+            return Enum.GetName(typeof(TEnum), value);
         }
 
         public static string GetName(DayOfWeek value)
         {
-            return Enum.GetName(typeof(T), value);
+            return Enum.GetName(typeof(TEnum), value);
         }
 
         public static string[] GetNames()
         {
-            return Enum.GetNames(typeof(T));
+            return Enum.GetNames(typeof(TEnum));
         }
 
         public static Type GetUnderlyingType()
         {
-            return Enum.GetUnderlyingType(typeof(T));
+            return Enum.GetUnderlyingType(typeof(TEnum));
         }
 
-        public static IEnumerable<T> GetValues()
+        public static IEnumerable<TEnum> GetValues()
         {
-            return Enum.GetValues(typeof(T)).Cast<T>();
+            return Enum.GetValues(typeof(TEnum)).Cast<TEnum>();
         }
 
         public static bool IsDefined(string name)
         {
-            return Enum.IsDefined(typeof(T), name);
+            return Enum.IsDefined(typeof(TEnum), name);
         }
 
-        public static bool IsDefined(T value)
+        public static bool IsDefined(TEnum value)
         {
-            return Enum.IsDefined(typeof(T), value);
+            return Enum.IsDefined(typeof(TEnum), value);
         }
 
-        public static T Parse(string name)
+        public static TEnum Parse(string name)
         {
-            return (T)Enum.Parse(typeof(T), name);
+            return (TEnum)Enum.Parse(typeof(TEnum), name);
         }
 
-        public static T ParseIgnoreCase(string name)
+        public static TEnum ParseIgnoreCase(string name)
         {
-            return (T)Enum.Parse(typeof(T), name, true);
+            return (TEnum)Enum.Parse(typeof(TEnum), name, true);
+        }
+
+        public static bool TryParse(string value, out TEnum result)
+        {
+            return Enum.TryParse<TEnum>(value, out result);
+        }
+
+        public static bool TryParseIgnoreCase(string value, out TEnum result)
+        {
+            return Enum.TryParse<TEnum>(value, true, out result);
         }
     }
 }

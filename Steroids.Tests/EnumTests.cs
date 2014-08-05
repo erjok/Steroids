@@ -113,6 +113,29 @@ namespace Steroids.Tests
             Enum<DayOfWeek>.ParseIgnoreCase("friday").ShouldBeEqual(DayOfWeek.Friday);
         }
 
+        [Fact]
+        public void ShouldTryParseValidName()
+        {
+            DayOfWeek result;
+            Enum<DayOfWeek>.TryParse("Tuesday", out result).ShouldBeTrue();
+            result.ShouldBeEqual(DayOfWeek.Tuesday);
+        }
+
+        [Fact]
+        public void ShouldTryParseInvalidName()
+        {
+            DayOfWeek result;
+            Enum<DayOfWeek>.TryParse("Beerday", out result).ShouldBeFalse();
+        }
+
+        [Fact]
+        public void ShouldTryIgnoreCaseParseValidName()
+        {
+            DayOfWeek result;
+            Enum<DayOfWeek>.TryParseIgnoreCase("monday", out result).ShouldBeTrue();
+            result.ShouldBeEqual(DayOfWeek.Monday);
+        }
+
         // TODO: Flags support
     }
 }
