@@ -37,5 +37,11 @@ namespace Steroids
             if (batch.Count > 0)
                 yield return batch;
         }
+
+        public static IEnumerable<T> Flatten<T>(this IEnumerable<T> source)
+            where T: IEnumerable<T>
+        {
+            throw new ArgumentNullException("source");
+        }
     }
 }

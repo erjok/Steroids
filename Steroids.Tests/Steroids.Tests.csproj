@@ -52,6 +52,7 @@
     <Compile Include="AssertionExtensions.cs" />
     <Compile Include="Linq\BatchTests.cs" />
     <Compile Include="Linq\BrokenEnumerable.cs" />
+    <Compile Include="Linq\FlattenTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
