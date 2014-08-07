@@ -17,16 +17,33 @@ namespace Steroids.Tests.Linq
             var exception = Assert.Throws<ArgumentNullException>(() => sequence.Flatten());
             exception.ParamName.ShouldBeEqual("source");
         }
+
+        [Fact]
+        public void ShouldFlattenHierarchicalEnumerable()
+        {
+            var sequence = new[] {
+                new Node(1) { Children = new [] { new Node(2) }},
+                new Node(3) { Children = new [] { new Node(4), new Node(5) }}
+            };
+
+            sequence.Flatten().Select(n => n.Value).ShouldBeEqual(1, 2, 3, 4, 5);
+        }
     }
 
     internal class Node : IEnumerable<Node>
     {
-        internal int Id { get; set; }
+        internal Node(int value)
+        {
+            Value = value;
+            Children = Enumerable.Empty<Node>();
+        }
+
+        internal int Value { get; set; }
         internal IEnumerable<Node> Children { get; set; }
 
         public IEnumerator<Node> GetEnumerator()
         {
-            throw new NotImplementedException();
+            return Children.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

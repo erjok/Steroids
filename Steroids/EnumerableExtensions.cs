@@ -41,7 +41,21 @@ namespace Steroids
         public static IEnumerable<T> Flatten<T>(this IEnumerable<T> source)
             where T: IEnumerable<T>
         {
-            throw new ArgumentNullException("source");
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            return FlattenIterator(source);
+        }
+
+        private static IEnumerable<T> FlattenIterator<T>(IEnumerable<T> source)
+            where T: IEnumerable<T>
+        {
+            foreach (var item in source)
+            {
+                yield return item;
+                foreach (var child in FlattenIterator(item))
+                    yield return child;
+            }
         }
     }
 }
