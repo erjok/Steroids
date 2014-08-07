@@ -13,7 +13,7 @@ namespace Steroids.Tests.Linq
         [Fact]
         public void ShouldNotFlattenNullSequence()
         {
-            IEnumerable<Node> sequence = null;
+            IEnumerable<EnumerableNode> sequence = null;
             var exception = Assert.Throws<ArgumentNullException>(() => sequence.Flatten());
             exception.ParamName.ShouldBeEqual("source");
         }
@@ -22,26 +22,33 @@ namespace Steroids.Tests.Linq
         public void ShouldFlattenHierarchicalEnumerable()
         {
             var sequence = new[] {
-                new Node(1) { Children = new [] { new Node(2) }},
-                new Node(3) { Children = new [] { new Node(4), new Node(5) }}
+                new EnumerableNode(1, 
+                    new EnumerableNode(2, 
+                        new EnumerableNode(3))),
+                new EnumerableNode(4, 
+                    new EnumerableNode(5), 
+                    new EnumerableNode(6))
             };
 
-            sequence.Flatten().Select(n => n.Value).ShouldBeEqual(1, 2, 3, 4, 5);
+            sequence.Flatten().Select(n => n.Value).ShouldBeEqual(1, 2, 3, 4, 5, 6);
         }
+
+        // Deferred
+        // Streaming
     }
 
-    internal class Node : IEnumerable<Node>
+    internal class EnumerableNode : IEnumerable<EnumerableNode>
     {
-        internal Node(int value)
+        internal EnumerableNode(int value, params EnumerableNode[] children)
         {
             Value = value;
-            Children = Enumerable.Empty<Node>();
+            Children = children;
         }
 
         internal int Value { get; set; }
-        internal IEnumerable<Node> Children { get; set; }
+        internal IEnumerable<EnumerableNode> Children { get; set; }
 
-        public IEnumerator<Node> GetEnumerator()
+        public IEnumerator<EnumerableNode> GetEnumerator()
         {
             return Children.GetEnumerator();
         }
